@@ -8,10 +8,6 @@ class Mailing:
         self.track = track
 
     def __str__(self):
-        from_address_str = ", ".join ([str(from_address_) for from_address in self.from_address])
+        from_address_str = ", ".join ([str(from_address) for from_address in self.from_address])
         return f"{to_address} отправитель: {from_address_str}"
     
-   
-
-
-
