@@ -1,7 +1,7 @@
 from user import User
 
-my_user = User
+my_user = User ("Иван", "Иванов")
 
-my_user.sayName()
-my_user.saylName()
-my_user.sayall()
+print(my_user.get_first_name())
+print(my_user.get_last_name())
+print(my_user.get_full_name())
