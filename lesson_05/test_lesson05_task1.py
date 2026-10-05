@@ -6,8 +6,10 @@ def test_navigation():
     driver.get(' https://httpbin.qa-territory.online')
 
     element = driver.find_element(By.CSS_SELECTOR, href="/forms/post")
+    button = driver.find_element(By.CSS_SELECTOR, href="/forms/post")
+    button.click()
     driver.current_url ("https://httpbin.qa-territory.online/forms/post")
     driver.back()
-    driver.current_url ("https://httpbin.qa-territory.online")
+    assert "/forms/post" in driver.current_url ("https://httpbin.qa-territory.online")
 
     driver.quit()
