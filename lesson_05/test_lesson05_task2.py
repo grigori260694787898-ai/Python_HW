@@ -13,6 +13,6 @@ name_field.send_keys("Григорий Бологов")
 submit_btn = driver.find_element(By.XPATH, "//button[text()='Submit order']")
 submit_btn.click()
 
-driver.current_url("https://httpbin.qa-territory.online/post")
+assert driver.current_url !=("https://httpbin.qa-territory.online/forms/post")
 
 driver.quit()
