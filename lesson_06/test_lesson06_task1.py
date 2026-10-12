@@ -3,27 +3,31 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
 def test_dynamic_loading():
     driver = webdriver.Chrome()
-    driver.get('https://the-internet.herokuapp.com/dynamic_loading/2.')
+    wait = WebDriverWait(driver, 10)
 
-    Start_btn = driver.find_element(By.CSS_SELECTOR, "#start > button")
-    Start_btn.click()
+    try:
+        driver.get('https://the-internet.herokuapp.com/dynamic_loading/2')
 
-    WebDriverWait(driver, 10).until(
-     EC.text_to_be_present_in_element((By.ID, "finish"), "Hello World!")
- )
+        start_btn = driver.find_element(By.CSS_SELECTOR, "#start > button")
+        start_btn.click()
 
-message = wait.until(
-        EC.text_to_be_present_in_element((By.ID, "finish"), "Hello World!")
-    )
-# message_element = driver.find_element(By.ID, "finish")
-#   assert message_element.text == "Hello World!", "Сообщение 'Hello World!' появилось"
+        # Ждём, пока в элементе с id="finish" появится текст "Hello World!"
+        wait.until(
+            EC.text_to_be_present_in_element((By.ID, "finish"), "Hello World!")
+        )
 
-save_screenshot()
+        # Сохраняем скриншот
+        driver.save_screenshot("hello_world_loaded.png")
 
-text = "Hello World!"
-assert text == "Hello World!", f"Текст совпал. Получено: {text}"
+        # Проверяем текст в элементе (реальный, а не придуманный)
+        message_element = driver.find_element(By.ID, "finish")
+        assert "Hello World!" in message_element.text, "Сообщение 'Hello World!' не появилось"
 
-driver.quit()
+    finally:
+        # Гарантированно закрываем браузер
+        driver.quit()
+
+if __name__ == "__main__":
+    test_dynamic_loading()
